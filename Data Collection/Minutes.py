@@ -10,4 +10,4 @@ dataset = FederalReserveMins().find_minutes()
 dataset.reset_index(inplace=True)
 dataset.rename({"index":"date"},inplace=True)
 # save the dataset into csv format
-dataset.to_csv("../Data/FOMC meeting minutes.csv",index=False)
+dataset.to_csv("../Data/Raw Data/FOMC meeting minutes.csv",index=False)

@@ -111,4 +111,4 @@ if __name__ == '__main__':
 
     # # combine the data and save to csv
     df_speeches = pd.concat([df_speeches,df_speeches2],ignore_index=True)
-    df_speeches.to_csv("../Data/speeches.csv",index=False)
+    df_speeches.to_csv("../Data/Raw Data/speeches.csv",index=False)
