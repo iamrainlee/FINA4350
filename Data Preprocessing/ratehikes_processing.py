@@ -5,7 +5,7 @@ import pandas as pd
 df = pd.read_csv('ratehikes.csv')
 df['rate_hike'] = df['FEDFUNDS'].diff().round(2)
 
-print(df)
+#print(df)
 
 df.to_csv("ratehikes_process.csv", index=False)
 
