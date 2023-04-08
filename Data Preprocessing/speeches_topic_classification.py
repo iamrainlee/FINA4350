@@ -47,6 +47,6 @@ print(collections.Counter(topics))
 df['topic'] = topics.tolist()
 df.to_csv("../Data/Preprocessed Data/speeches_with_topics.csv",index=False)
 
-#Topic 0 is the most relevant topic
-df = df[df['topic']==0] 
-df.to_csv("../Data/Preprocessed Data/speeches_topic_0.csv",index=False)
+#Topic 0 and 1 are most relevant topics
+df = df[(df['topic']==0)|(df['topic']==1)] 
+df.to_csv("../Data/Preprocessed Data/speeches_topics_0_1.csv",index=False)

@@ -12,6 +12,9 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 stop_words = stopwords.words('english')
 
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+
 csv.field_size_limit(sys.maxsize) #allow import of csv of large file size
 
 #load the csv
@@ -51,11 +54,13 @@ def str_preprocess(s):
     """
     Preprocess the string by removing symbols, short words and stop words
     """
+    global ps #stemming
     s = re.sub(r"[^a-zA-Z.]", " ",s) #remove symbols except full stop.
     s = re.sub(r'\s+',' ',s)
-    s = ' '.join([w for w in s.split() if len(w)>3 and w not in stop_words])
+    s = ' '.join([ps.stem(w) for w in s.split() if len(w)>3 and w not in stop_words])
     s = s.lower()
     return s
+
 
 df["Content"] = df.Content.apply(strToList)
 df["Content"] = df.Content.apply(removeUnrelated)
