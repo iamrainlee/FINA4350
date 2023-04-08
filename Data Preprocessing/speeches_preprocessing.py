@@ -15,7 +15,14 @@ stop_words = stopwords.words('english')
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 
-csv.field_size_limit(sys.maxsize) #allow import of csv of large file size
+#allow import of csv of large file size while preventing interger overflow error
+maxInt = sys.maxsize
+while True:
+    try:
+        csv.field_size_limit(maxInt)
+        break
+    except OverflowError:
+        maxInt = int(maxInt/10)
 
 #load the csv
 df = pd.read_csv("../Data/Raw Data/speeches.csv",engine='python',converters={"Date":pd.to_datetime,"Content":str})
