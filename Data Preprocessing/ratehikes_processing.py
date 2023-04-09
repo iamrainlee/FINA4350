@@ -17,7 +17,7 @@ while True:
         maxInt = int(maxInt/10)
 
 
-df = pd.read_csv("../Data/Raw Data/ratehikes.csv")
+df = pd.read_csv("../Data/Raw Data/ratehike.csv")
 df['rate_hike'] = df['Interest'].diff().round(4)
 
 #print(df)
