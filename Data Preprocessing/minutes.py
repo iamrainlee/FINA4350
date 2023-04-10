@@ -1,4 +1,3 @@
-from IPython.utils.text import compute_item_matrix
 import pandas as pd
 import csv
 import sys
@@ -26,11 +25,15 @@ df = pd.read_csv('../Data/Raw Data/FOMC meeting minutes.csv',engine="python",con
 
 def removeUnrelatedText(x):
     # remove words before the line
-    try:
-        x = x.split('By unanimous vote, the minutes of the meeting of the Federal Open Market Committee held on')[1]
-        x = x[x.find('were approved.')+14:]
-    except:
+    if x.find('By unanimous vote, the minutes of the meeting of the Federal Open Market Committee held on')>0:
+        x = x.split('By unanimous vote, the minutes of the meeting of the Federal Open Market Committee held on')
+        if len(x)>=1:
+            x = " ".join(x[1:])
+            x = x[x.find('were approved.')+14:]
+            return x
+    else:
         return x
+    return x
 
 def str_processing(s):
     """
@@ -42,7 +45,6 @@ def str_processing(s):
     s = ' '.join([ps.stem(w) for w in s.split() if len(w)>3 and w not in stop_words])
     s = s.lower()
     return s
-
 df['Federal_Reserve_Mins']=df.Federal_Reserve_Mins.apply(lambda x: re.sub(r'\s+',r' ',str(x)))
 df['Federal_Reserve_Mins']=df.Federal_Reserve_Mins.apply(removeUnrelatedText) #remove unrelated text such as participants of the FOMC meeting and voting result that is considered irrelevant
 df['Federal_Reserve_Mins'] = df.Federal_Reserve_Mins.apply(str_processing)

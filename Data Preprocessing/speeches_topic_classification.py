@@ -5,7 +5,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 import collections
 
-csv.field_size_limit(sys.maxsize)
+#allow import of csv of large file size while preventing interger overflow error
+maxInt = sys.maxsize
+while True:
+    try:
+        csv.field_size_limit(maxInt)
+        break
+    except OverflowError:
+        maxInt = int(maxInt/10)
 
 # load in preprocessed data
 df = pd.read_csv("../Data/Preprocessed Data/speeches_preprocessed.csv",engine='python',converters={"Date":pd.to_datetime,"Content":str})
