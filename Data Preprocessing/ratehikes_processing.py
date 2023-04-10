@@ -18,10 +18,13 @@ while True:
 
 
 df = pd.read_csv("../Data/Raw Data/ratehike.csv")
-df['rate_hike'] = df['Interest'].diff().round(4)
+
+data = df.iloc[::-1]
+data['rate_hike'] = data['Interest'].diff().round(4)
+
 
 #print(df)
 
-df.to_csv("../Data/Preprocessed Data/ratehikes_preprocessed.csv", index=False)
+data.to_csv("../Data/Preprocessed Data/ratehikes_preprocessed.csv", index=False)
 
 
