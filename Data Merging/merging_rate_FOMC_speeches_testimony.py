@@ -13,7 +13,7 @@ while True:
     except OverflowError:
         maxInt = int(maxInt/10)
 
-ratehike = pd.read_csv("../Data/Preprocessed Data/ratehikes_process.csv",engine='python',converters={"Date":pd.to_datetime,"rate_hike":float})
+ratehike = pd.read_csv("../Data/Preprocessed Data/ratehikes_preprocessed.csv",engine='python',converters={"Date":pd.to_datetime,"rate_hike":float})
 speeches = pd.read_csv("../Data/Preprocessed Data/speeches_preprocessed.csv",engine='python',converters={"index":pd.to_datetime,"Content":str})
 testimony = pd.read_csv("../Data/Preprocessed Data/testimony_preprocessed.csv",engine='python',converters={"date":pd.to_datetime,"content":str})
 minutes = pd.read_csv("../Data/Preprocessed Data/minutes_preprocessed.csv",engine='python',converters={"index":pd.to_datetime,"Federal_Reserve_Mins":str})
@@ -40,7 +40,7 @@ ratehike.dropna(inplace=True)
 
 #change the units of rate hike for easier understanding
 ratehike['rate_hike'] = ratehike['rate_hike']*10000
-ratehike['Interest'] = ratehike['Interest']*100
+#ratehike['Interest'] = ratehike['Interest']*100
 
 
 #sql query for merging data using subquery and concatenating the textual data
