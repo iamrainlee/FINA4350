@@ -17,7 +17,7 @@ ratehike = pd.read_csv("../Data/Preprocessed Data/ratehikes_preprocessed.csv",en
 speeches = pd.read_csv("../Data/Preprocessed Data/speeches_preprocessed.csv",engine='python',converters={"index":pd.to_datetime,"Content":str})
 testimony = pd.read_csv("../Data/Preprocessed Data/testimony_preprocessed.csv",engine='python',converters={"date":pd.to_datetime,"content":str})
 minutes = pd.read_csv("../Data/Preprocessed Data/minutes_preprocessed.csv",engine='python',converters={"index":pd.to_datetime,"Federal_Reserve_Mins":str})
-statements = pd.read_csv("../Data/Raw Data/FOMCStatement.csv",engine='python',converters={"Unnamed: 0":pd.to_datetime,"FOMC_Statements":str})
+statements = pd.read_csv("../Data/Preprocessed Data/statement_preprocessed.csv",engine='python',converters={"Unnamed: 0":pd.to_datetime,"FOMC_Statements":str})
 
 # rename columns to Date
 speeches.rename(columns={'index':'Date'},inplace=True)

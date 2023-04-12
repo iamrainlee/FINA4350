@@ -15,7 +15,7 @@ while True:
 
 ratehike = pd.read_csv("../Data/Preprocessed Data/ratehikes_preprocessed.csv",engine='python',converters={"Date":pd.to_datetime,"rate_hike":float})
 minutes = pd.read_csv("../Data/Preprocessed Data/minutes_preprocessed.csv",engine='python',converters={"index":pd.to_datetime,"Federal_Reserve_Mins":str})
-statements = pd.read_csv("../Data/Raw Data/FOMCStatement.csv",engine='python',converters={"Unnamed: 0":pd.to_datetime,"FOMC_Statements":str})
+statements = pd.read_csv("../Data/Preprocessed Data/statement_preprocessed.csv",engine='python',converters={"Unnamed: 0":pd.to_datetime,"FOMC_Statements":str})
 
 # rename columns to Date
 statements.rename(columns={'Unnamed: 0':'Date'},inplace=True)
