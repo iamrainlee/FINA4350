@@ -36,8 +36,8 @@ ratehike['rate_hike'] = ratehike['rate_hike']*10000
 
 #sql query for merging data using subquery and concatenating the textual data
 df = pysqldf("SELECT r.Date, r.From_Date, r.rate_hike, \
-            (SELECT s.FOMC_Statements FROM statements s WHERE s.Date >= r.From_Date AND s.Date < r.Date) || ' ' ||\
-            (SELECT m.Federal_Reserve_Mins FROM minutes m WHERE m.Date >= r.From_Date AND m.Date < r.Date) \
+            IFNULL((SELECT s.FOMC_Statements FROM statements s WHERE s.Date >= r.From_Date AND s.Date < r.Date),'') || ' ' ||\
+            IFNULL((SELECT m.Federal_Reserve_Mins FROM minutes m WHERE m.Date >= r.From_Date AND m.Date < r.Date),'') \
             AS data FROM ratehike as r WHERE data <> ' '")
 
 df.to_csv('../Data/Merged Data/rate_FOMC.csv',index=False)

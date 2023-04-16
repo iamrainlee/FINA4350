@@ -36,8 +36,8 @@ ratehike['rate_hike'] = ratehike['rate_hike']*10000
 
 #sql query for merging data using subquery and concatenating the textual data
 df = pysqldf("SELECT r.Date, r.From_Date, r.rate_hike, \
-            (SELECT s.Content FROM speeches s WHERE s.Date >= r.From_Date AND s.Date < r.Date) || ' ' ||\
-            (SELECT t.content FROM testimony t WHERE t.Date >= r.From_Date AND t.Date < r.Date) \
+            IFNULL((SELECT s.Content FROM speeches s WHERE s.Date >= r.From_Date AND s.Date < r.Date),'') || ' ' ||\
+            IFNULL((SELECT t.content FROM testimony t WHERE t.Date >= r.From_Date AND t.Date < r.Date),'') \
             AS data FROM ratehike as r WHERE data <> ' '")
 
 df.to_csv('../Data/Merged Data/rate_speeches_testimony.csv',index=False)
