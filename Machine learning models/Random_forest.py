@@ -18,7 +18,6 @@ data = pd.read_csv('../Data/Merged Data/rate_FOMC_speeches_testimony.csv')
 
 #1. data
 data['data'] = data['data'].str.replace('.','')
-data.tail()
 
 X = data['data']
 y = data['rate_hike']
