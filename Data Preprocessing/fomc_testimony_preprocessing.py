@@ -21,23 +21,17 @@ while True:
     maxInt = int(maxInt/10)
 
 def remove_unrelated_text(x): #x = df.content
-  if x[0] == ' ':
-    x = x[1:]
-  if x[-1] == ' ':
-    x = x[:-1]
+  x = re.sub(r'\s+',' ',x)
   if 'Return to top' in x:
     x = x[:x.find('Return to top')]
   if 'Note:' in x:
-    x = x[:x.rfind(' Note:')]
+    x = x[:x.rfind('Note:')]
   if 'Notes:' in x:
-    x = x[:x.rfind(' Notes:')]
+    x = x[:x.rfind('Notes:')]
   if 'footnotes' in x:
     x = x[:x.find('footnotes')]
   if 'Footnotes' in x:
     x = x[:x.find('Footnotes')]
-  x = x.replace('       ', ' ')
-  x = x.replace('     ', ' ')
-  x = x.replace('  ', ' ')
   return x
 
 def str_preprocess(s):
