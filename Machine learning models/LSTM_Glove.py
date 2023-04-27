@@ -92,6 +92,8 @@ python3 LSTM_Glove.py [data]
     words_to_index = tokenizer.word_index
 
     if not os.path.exists('Library/glove.6B.50d.txt'):
+        if not os.path.exists("Library"):
+            os.mkdir('Library')
         url = 'https://www.dropbox.com/s/net9dyagiwskupp/glove.6B.50d.txt?dl=0'
         wget.download(url, out='Library/glove.6B.50d.txt')
     
