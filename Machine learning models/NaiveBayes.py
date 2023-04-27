@@ -2,6 +2,17 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
+import sys
+import csv
+
+#allow import of csv of large file size while preventing interger overflow error
+maxInt = sys.maxsize
+while True:
+    try:
+        csv.field_size_limit(maxInt)
+        break
+    except OverflowError:
+        maxInt = int(maxInt/10)
 
 # Load merged dataset into a Pandas dataframe
 df = pd.read_csv('rate_FOMC.csv')

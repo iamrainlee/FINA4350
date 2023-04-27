@@ -1,7 +1,6 @@
 import pandas as pd
 import csv
 import sys
-maxInt = sys.maxsize
 import re
 
 import nltk
@@ -13,6 +12,7 @@ stop_words = stopwords.words('english') #remove stopwords
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 
+maxInt = sys.maxsize
 while True:
     # decrease the maxInt value by factor 10
     # as long as the OverflowError occurs, we catch the error

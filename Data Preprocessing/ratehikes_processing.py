@@ -2,9 +2,6 @@ import csv
 import sys
 import pandas as pd
 
-# load the csv
-csv.field_size_limit(sys.maxsize)
-
 #allow import of csv of large file size while preventing interger overflow error
 maxInt = sys.maxsize
 while True:

@@ -4,6 +4,8 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 from sklearn.metrics import accuracy_score, mean_squared_error, mean_absolute_error
 import pandas as pd
 import numpy as np
+import sys
+import csv
 
 #allow import of csv of large file size while preventing interger overflow error
 maxInt = sys.maxsize
