@@ -84,7 +84,7 @@ python3 LSTM_Glove.py [data]
     print("using data:",sys.argv[1])
     data['data'] = data.data.str.replace('.','')
     X = np.array(data['data'])
-    y = np.array(data['rate_hike'])
+    y = pd.get_dummies(data['rate_hike']).values
     X_train, X_test,Y_train, Y_test = train_test_split(X, y, test_size=0.2, random_state = 43)
     tokenizer = Tokenizer(num_words=5000)
     tokenizer.fit_on_texts(X_train)
