@@ -12,6 +12,8 @@ import keras
 from sklearn.model_selection import train_test_split
 import sys
 import csv
+import os
+import wget
 
 #allow import of csv of large file size while preventing interger overflow error
 maxInt = sys.maxsize
@@ -48,7 +50,7 @@ def rate_predict(input_shape):
 
     X = LSTM(128)(X)
 
-    X = Dense(1, activation='sigmoid')(X)
+    X = Dense(8, activation='sigmoid')(X)
 
     model = Model(inputs=X_indices, outputs=X)
 
@@ -79,6 +81,7 @@ python3 LSTM_Glove.py [data]
         except:
             print("The path to data is invalid. Please check")
             exit()
+    print("using data:",sys.argv[1])
     data['data'] = data.data.str.replace('.','')
     X = np.array(data['data'])
     y = np.array(data['rate_hike'])
@@ -88,9 +91,13 @@ python3 LSTM_Glove.py [data]
 
     words_to_index = tokenizer.word_index
 
+    if not os.path.exists('Library/glove.6B.50d.txt'):
+        url = 'https://www.dropbox.com/s/net9dyagiwskupp/glove.6B.50d.txt?dl=0'
+        wget.download(url, out='Library/glove.6B.50d.txt')
+    
     word_to_vec_map = read_glove_vector('Library/glove.6B.50d.txt')
 
-    maxLen = 150
+    maxLen = 300
 
     vocab_len = len(words_to_index)
     embed_vector_len = word_to_vec_map['moon'].shape[0]
@@ -111,13 +118,16 @@ python3 LSTM_Glove.py [data]
 
     model = rate_predict(maxLen)
 
-    adam = keras.optimizers.Adam(learning_rate = 0.00003)
-    model.compile(optimizer=adam, loss='binary_crossentropy', metrics=['accuracy'])
+    adam = keras.optimizers.Adam(learning_rate = 0.00005)
+    model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(X_train_indices, Y_train, batch_size=16, epochs=20)
+    model.fit(X_train_indices, Y_train, batch_size=32, epochs=10, validation_split=0.1)
+    
+    print("Training completed")
+    print("Training accuracy:",model.evaluate(X_train_indices, Y_train)[1])
 
     X_test_indices = tokenizer.texts_to_sequences(X_test)
 
     X_test_indices = pad_sequences(X_test_indices, maxlen=maxLen, padding='post')
 
-    model.evaluate(X_test_indices, Y_test)
+    print('Testing accuracy:',model.evaluate(X_test_indices, Y_test)[1])
