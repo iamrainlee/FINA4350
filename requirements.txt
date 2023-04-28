@@ -6,3 +6,4 @@ FedTools
 keras
 sklearn
 wget
+tensorflow-text
