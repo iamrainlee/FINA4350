@@ -34,7 +34,7 @@ def read_glove_vector(glove_vec):
             word_to_vec_map[curr_word] = np.array(w_line[1:], dtype=np.float64)
     return word_to_vec_map
 
-def rate_predict(input_shape):
+def rate_predict(input_shape,output_shape):
 
     X_indices = Input(input_shape)
 
@@ -50,7 +50,7 @@ def rate_predict(input_shape):
 
     X = LSTM(128)(X)
 
-    X = Dense(8, activation='sigmoid')(X)
+    X = Dense(output_shape, activation='sigmoid')(X)
 
     model = Model(inputs=X_indices, outputs=X)
 
@@ -118,7 +118,7 @@ python3 LSTM_Glove.py [data]
 
     X_train_indices = pad_sequences(X_train_indices, maxlen=maxLen, padding='post')
 
-    model = rate_predict(maxLen)
+    model = rate_predict(maxLen,Y_train.shape[1])
 
     adam = keras.optimizers.Adam(learning_rate = 0.00005)
     model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
