@@ -68,7 +68,7 @@ def str_preprocess(s):
     s = s.lower()
     return s
 
-
+#Apply preprocessing functions to Content
 df["Content"] = df.Content.apply(strToList)
 df["Content"] = df.Content.apply(removeUnrelated)
 df["Content"] = df.Content.apply(lambda x: " ".join(x))
@@ -76,6 +76,6 @@ df["Content"] = df.Content.apply(str_preprocess)
 
 df = df[df["Content"].str.len()>300] #remove empty/ failed to retrieve content
 
-df.sort_values('Date',inplace=True)
+df.sort_values('Date',inplace=True) #sort by date for merging
 
-df.to_csv("../Data/Preprocessed Data/speeches_preprocessed.csv",index=False)
+df.to_csv("../Data/Preprocessed Data/speeches_preprocessed.csv",index=False) #save
