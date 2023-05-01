@@ -17,10 +17,12 @@ while True:
         maxInt = int(maxInt/10)
 
 data_list = ['rate_FOMC_speeches_testimony', 'rate_speeches_testimony', 'rate_FOMC'] #data available
-data_chosen = input("Please choose the data :\n1.rate_FOMC_speeches_testimony\n2.rate_speeches_testimony\n3.rate_FOMC\n")
+print("dataset available:\nrate_FOMC_speeches_testimony\nrate_speeches_testimony\nrate_FOMC")
+data_chosen = input("Please choose the data: ")
 
 while (data_chosen not in data_list): #proceeds only if the data input is correct
-  data_chosen = input("Please choose the data :\n1.rate_FOMC_speeches_testimony\n2.rate_speeches_testimony\n3.rate_FOMC\n")
+  print("dataset available:\nrate_FOMC_speeches_testimony\nrate_speeches_testimony\nrate_FOMC")
+  data_chosen = input("Please choose the data: ")
 
 data = pd.read_csv('../Data/Merged Data/' + data_chosen + '.csv')
 

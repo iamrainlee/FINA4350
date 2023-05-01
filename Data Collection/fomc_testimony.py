@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import json
+import re
 
 def get_recent_testimonies(): 
   '''
@@ -227,16 +228,7 @@ def get_old_testimonies():
     for i in soup.find_all('p'):
       emp_str += i.get_text()
       emp_str = emp_str.replace('\xa0', ' ') #cleaning
-      emp_str = emp_str.replace('\n', ' ')
-      emp_str = emp_str.replace('\r', ' ')
-      emp_str = emp_str.replace('\t', ' ')
-      emp_str = emp_str.replace('         ', ' ')
-      emp_str = emp_str.replace('       ', ' ')
-      emp_str = emp_str.replace('                ', ' ')
-      emp_str = emp_str.replace('               ', ' ')
-      emp_str = emp_str.replace('      ', ' ')
-      emp_str = emp_str.replace('    ', ' ')
-      emp_str = emp_str.replace('  ', ' ')
+      emp_str = re.sub(r'\s+',' ',emp_str)
     emp_dict['content'].append(emp_str) #append the text 
 
   years1=range(1999, 2006)

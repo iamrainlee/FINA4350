@@ -17,10 +17,12 @@ while True:
         maxInt = int(maxInt/10)
 
 data_list = ['rate_FOMC_speeches_testimony', 'rate_speeches_testimony', 'rate_FOMC'] #data available
-data_chosen = input("Please choose the data :\n1.rate_FOMC_speeches_testimony\n2.rate_speeches_testimony\n3.rate_FOMC\n")
+print("dataset available:\nrate_FOMC_speeches_testimony\nrate_speeches_testimony\nrate_FOMC")
+data_chosen = input("Please choose the data: ")
 
 while (data_chosen not in data_list): #proceeds only if the data is inputted correctly
-  data_chosen = input("Please choose the data :\n1.rate_FOMC_speeches_testimony\n2.rate_speeches_testimony\n3.rate_FOMC\n")
+    print("dataset available:\nrate_FOMC_speeches_testimony\nrate_speeches_testimony\nrate_FOMC")
+    data_chosen = input("Please choose the data: ")
 
 data = pd.read_csv('../Data/Merged Data/' + data_chosen + '.csv')
 
@@ -48,7 +50,7 @@ pred1_tfidf = clf_tfidf.predict(X_test_tfidf)
 
 accu1_tfidf = accuracy_score(y_test, pred1_tfidf)
 
-score_tfidf = cross_val_score(clf_tfidf, X_train_tfidf, y_train, cv = 5) #5-fold cross validation
+score_tfidf = cross_val_score(clf_tfidf, X_train_tfidf, y_train, cv = 42) #5-fold cross validation
 
 print("mean score for 5-fold cross validation :", score_tfidf.mean())
 
