@@ -81,7 +81,7 @@ LSTM with Glove: **LSTM_Glove.py**, CNN with BERT: **CNN.py**
 
     python3 [file] [data]
     
-[data] could be "../Data/Merged Data/rate_FOMC.csv", "../Data/Merged Data/rate_speeches_testimony.csv" or "../Data/Merged Data/rate_FOMC_speeches_testimony.csv"
+>[data] could be "../Data/Merged Data/rate_FOMC.csv", "../Data/Merged Data/rate_speeches_testimony.csv" or "../Data/Merged Data/rate_FOMC_speeches_testimony.csv"
 
 E.g.
 
