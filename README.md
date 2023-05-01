@@ -23,3 +23,66 @@ The full dataset has the highest accuracy across the 3 datasets in most of the m
 | RF           | 73.91%                  |
 | LSTM - GLoVe | 71.74%                  |
 | CNN - BERT   | 71.74%                  |
+
+## How to use
+First download the repository or clone the repository. Then, install the required libraries by
+
+    pip install -r requirements.txt
+  
+#### Data Collection:
+
+    cd "Data Collection"
+    python3 Minutes.py
+    python3 fomc_testimony.py
+    python3 speeches.py
+    python3 Statements.py
+
+Please note that rate hike data are downloaded rather than collected.
+
+#### Data Preprocessing and Topic Modelling:
+Please return to the base directory (FINA4350) before running following codes.
+Please note that speeches_precessing.py must be run before speeches_topic_classification.py
+
+    cd "Data Collection"
+    python3 fomc_testimony_preprocessing.py
+    python3 minutes.py
+    python3 ratehikes_processing.py
+    python3 speeches_preprocessing.py
+    python3 speeches_topic_classification.py
+    python3 statement_preprocessed.py
+    
+#### Data Merging:
+
+    cd "Data Merging"
+    python3 merging_rate_FOMC.py
+    python3 merging_rate_speeches_testimony.py
+    python3 merging_rate_FOMC_speeches_testimony.py
+
+#### Machine Learning:
+Please return to the base directory (FINA4350) before running following codes.
+
+    cd "Machine learning models"
+    
+For SVM, RF or kNN models:
+
+SVM: **SVM.py**, RF: **Random_forest.py**, kNN: **knn.py**
+
+E.g.
+
+    python3 SVM.py
+    
+>Please choose the data : **merging_rate_FOMC**
+>#You can choose from merging_rate_FOMC, merging_rate_speeches_testimony or merging_rate_FOMC_speeches_testimony
+
+For Deep Learning models (LSTM with Glove, CNN with BERT):
+
+LSTM with Glove: **LSTM_Glove.py**, CNN with BERT: **CNN.py**
+
+    python3 [file] [data]
+    
+[data] could be "../Data/Merged Data/rate_FOMC.csv", "../Data/Merged Data/rate_speeches_testimony.csv" or "../Data/Merged Data/rate_FOMC_speeches_testimony.csv"
+
+E.g.
+
+    python3 LSTM_Glove.py "../Data/Merged Data/rate_FOMC.csv"
+    
