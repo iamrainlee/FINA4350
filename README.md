@@ -18,10 +18,10 @@ The full dataset has the highest accuracy across the 3 datasets in most of the m
 
 | Model        | Accuracy (Testing Data) |
 |--------------|-------------------------|
-| SVM          | 71.74%                  |
-| kNN          | 71.74%                  |
+| SVM          | 65.22%                  |
+| kNN          | 69.57%                  |
 | RF           | 73.91%                  |
-| LSTM - GLoVe | 71.74%                  |
+| LSTM - GLoVe | 67.39%                  |
 | CNN - BERT   | 71.74%                  |
 
 ## How to use
@@ -86,4 +86,6 @@ LSTM with Glove: **LSTM_Glove.py**, CNN with BERT: **CNN.py**
 E.g.
 
     python3 LSTM_Glove.py "../Data/Merged Data/rate_FOMC.csv"
+    
+>If you meet error about not permitted to create folder/ create a file, please run the code with higher privilege (e.g. sudo), as the pre-trained GloVe model has to be downloaded to the computer.
     
