@@ -15,6 +15,8 @@ import csv
 import os
 import wget
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #remove debug info
+
 #allow import of csv of large file size while preventing interger overflow error
 maxInt = sys.maxsize
 while True:

@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' #remove debug info
+
 import tensorflow_text as text
 import tensorflow as tf
 import tensorflow_hub as hub
