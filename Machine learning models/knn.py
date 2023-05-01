@@ -17,11 +17,11 @@ while True:
         maxInt = int(maxInt/10)
 
 data_list = ['rate_FOMC_speeches_testimony', 'rate_speeches_testimony', 'rate_FOMC'] #data available
-print("dataset available:\nrate_FOMC_speeches_testimony\nrate_speeches_testimony\nrate_FOMC")
+print("dataset available:\n rate_FOMC_speeches_testimony\n rate_speeches_testimony\n rate_FOMC")
 data_chosen = input("Please choose the data: ")
 
 while (data_chosen not in data_list): #proceeds only if the data is inputted correctly
-  print("dataset available:\nrate_FOMC_speeches_testimony\nrate_speeches_testimony\nrate_FOMC")
+  print("dataset available:\n rate_FOMC_speeches_testimony\n rate_speeches_testimony\n rate_FOMC")
   data_chosen = input("Please choose the data: ")
 
 data = pd.read_csv('../Data/Merged Data/' + data_chosen + '.csv')
@@ -68,4 +68,4 @@ pred2_tfidf = grid_search_tfidf.predict(X_test_tfidf) #prediction using the best
 
 accu2_tfidf = accuracy_score(y_test, pred2_tfidf)
 
-print(" Data     : {0}\n TFIDF\n initial  : accuracy : {1}\n gridcv   : accuracy : {2}".format(data_chosen, accu1_tfidf, accu2_tfidf))
+print(" Data : {0}\n TFIDF\n testing accuracy : {1}".format(data_chosen, accu2_tfidf))
