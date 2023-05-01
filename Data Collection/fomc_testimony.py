@@ -13,22 +13,22 @@ def get_recent_testimonies():
     text.raise_for_status() #check if correctly retrieved
     text = text.content.decode("utf-8-sig") #decode json according to the websites encoding
     testimonies = json.loads(text)
-    lst_d = []
-    lst_s = []
-    lst_s1 = []
+    lst_d = [] #list of date
+    lst_s = [] #list of speaker
+    lst_s1 = [] #another list of speaker for creating dataframe
     for testimony in testimonies:
       if ('2006' in testimony['d']) or ('2007' in testimony['d']) or ('2008' in testimony['d']) or ('2009' in testimony['d']) or ('2010' in testimony['d']) \
       or ('2011' in testimony['d']) or ('2012' in testimony['d']) or ('2013' in testimony['d']) or('2014' in testimony['d']) or ('2015' in testimony['d']) \
       or ('2016' in testimony['d']) or ('2017' in testimony['d']) or ('2018' in testimony['d']) or ('2019' in testimony['d']) or ('2020' in testimony['d']) \
       or ('2021' in testimony['d']) or ('2022' in testimony['d']) or ('2023' in testimony['d']): #only collect testimonies from 2006 to 2023
-        lst_d.append(testimony['d'])#[:testimony['d'].find(" ")])
+        lst_d.append(testimony['d'])
         lst_s.append(testimony['s'])
         lst_s1.append(testimony['s'])
   except:
       pass
 
   ser1 = pd.Series(lst_d)
-  ser1.loc[68] = '2/15/2006' 
+  ser1.loc[68] = '2/15/2006' #fixing minor errors
   ser1.loc[69] = '3/1/2006'
   ser1 = pd.to_datetime(ser1)
   ser1 = ser1.dt.strftime('%Y%m%d').astype(str)
@@ -174,7 +174,7 @@ def get_recent_testimonies():
   emp_dict = {"date" : [], "speaker" : lst_s1, "content" : []}
   for num, speaker, date in lst_total:
     emp_str = ""
-    if (date == '20160414') or date == ('20110812'):
+    if (date == '20160414') or date == ('20110812'): #fixing the difference in types of link
       link = 'https://www.federalreserve.gov/newsevents/testimony/' + speaker + date + '.htm'
     elif (date == '20080923'):
       link = 'https://www.federalreserve.gov/newsevents/testimony/' + speaker + date + 'a1.htm'
@@ -246,7 +246,7 @@ def get_old_testimonies():
     soup1 = BeautifulSoup(page1.text, 'html.parser')
     title1 = soup1.select(".title")
     for i in range(len(title1)):
-      if (year == 1999) and (i == 16):
+      if (year == 1999) and (i == 16): #difference in HTML 
         links1.append(title1[i].find_all('a', href=True)[0]['href'])
       elif (year == 2004) and ((i == 7) or (i == 8)):
         links1.append(title1[i].find_all('a', href=True)[0]['href'])
@@ -285,7 +285,7 @@ def get_old_testimonies():
 
   links_total = links + links1
   ser0 = pd.Series(links_total)
-  ser0 = ser0.str.extract('(\d\d\d\d\d\d\d\d)')
+  ser0 = ser0.str.extract('(\d\d\d\d\d\d\d\d)') #extracting date
   ser0 = pd.Series(ser0.values.reshape(len(ser0)))
   ser0.loc[4] = '19960718' #fix the difference between the actual date of testimony and the one shown on the link
   ser0.loc[22] = '19970722'
