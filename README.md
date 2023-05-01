@@ -70,9 +70,10 @@ SVM: **SVM.py**, RF: **Random_forest.py**, kNN: **knn.py**
 E.g.
 
     python3 SVM.py
+    Please choose the data : [data]
     
->Please choose the data : **merging_rate_FOMC**
->#You can choose from merging_rate_FOMC, merging_rate_speeches_testimony or merging_rate_FOMC_speeches_testimony
+>You can choose [data] from merging_rate_FOMC, merging_rate_speeches_testimony or merging_rate_FOMC_speeches_testimony
+>E.g. Please choose the data : ***merging_rate_FOMC***
 
 For Deep Learning models (LSTM with Glove, CNN with BERT):
 
