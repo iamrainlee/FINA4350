@@ -103,7 +103,7 @@ python3 LSTM_Glove.py [data]
     X = np.array(data['data'])
     y = pd.get_dummies(data['rate_hike']).values
 
-    X_train, X_test,Y_train, Y_test = train_test_split(X, y, test_size=0.2, random_state = 43)
+    X_train, X_test,Y_train, Y_test = train_test_split(X, y, test_size=0.2, random_state = 35)
     
     tokenizer = Tokenizer(num_words=5000)
     tokenizer.fit_on_texts(X_train)
