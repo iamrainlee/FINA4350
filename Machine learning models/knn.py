@@ -17,10 +17,10 @@ while True:
         maxInt = int(maxInt/10)
 
 data_list = ['rate_FOMC_speeches_testimony', 'rate_speeches_testimony', 'rate_FOMC'] #data available
-data_chosen = input("Please choose the data :")
+data_chosen = input("Please choose the data :\n1.rate_FOMC_speeches_testimony\n2.rate_speeches_testimony\n3.rate_FOMC\n")
 
 while (data_chosen not in data_list): #proceeds only if the data is inputted correctly
-  data_chosen = input("Please choose again :")
+  data_chosen = input("Please choose the data :\n1.rate_FOMC_speeches_testimony\n2.rate_speeches_testimony\n3.rate_FOMC\n")
 
 data = pd.read_csv('../Data/Merged Data/' + data_chosen + '.csv')
 
@@ -29,7 +29,7 @@ data['data'] = data['data'].str.replace('.','') #remove .
 X = data['data']
 y = data['rate_hike']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 18)
 
 cnt_vect = CountVectorizer() #bag-of-word
 X_train_count = cnt_vect.fit_transform(X_train)
@@ -60,7 +60,7 @@ grid_search_tfidf = GridSearchCV(estimator = clf_tfidf, param_grid = param_grid_
 
 grid_search_tfidf.fit(X_train_tfidf, y_train)
 
-grid_search_tfidf.best_params_
+print("Best parameters :",grid_search_tfidf.best_params_)
 
 pred2_tfidf = grid_search_tfidf.predict(X_test_tfidf) #prediction using the best parameter derived from gridcv
 
