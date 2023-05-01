@@ -4,11 +4,14 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import json
 
-def get_recent_testimonies():
+def get_recent_testimonies(): 
+  '''
+  this function collects testimonies from 2006 to 2023 and returns a dataframe
+  '''
   try:
     text = requests.get("https://www.federalreserve.gov/json/ne-testimony.json")
-    text.raise_for_status()
-    text = text.content.decode("utf-8-sig")
+    text.raise_for_status() #check if correctly retrieved
+    text = text.content.decode("utf-8-sig") #decode json according to the websites encoding
     testimonies = json.loads(text)
     lst_d = []
     lst_s = []
@@ -17,7 +20,7 @@ def get_recent_testimonies():
       if ('2006' in testimony['d']) or ('2007' in testimony['d']) or ('2008' in testimony['d']) or ('2009' in testimony['d']) or ('2010' in testimony['d']) \
       or ('2011' in testimony['d']) or ('2012' in testimony['d']) or ('2013' in testimony['d']) or('2014' in testimony['d']) or ('2015' in testimony['d']) \
       or ('2016' in testimony['d']) or ('2017' in testimony['d']) or ('2018' in testimony['d']) or ('2019' in testimony['d']) or ('2020' in testimony['d']) \
-      or ('2021' in testimony['d']) or ('2022' in testimony['d']) or ('2023' in testimony['d']):
+      or ('2021' in testimony['d']) or ('2022' in testimony['d']) or ('2023' in testimony['d']): #only collect testimonies from 2006 to 2023
         lst_d.append(testimony['d'])#[:testimony['d'].find(" ")])
         lst_s.append(testimony['s'])
         lst_s1.append(testimony['s'])
@@ -25,11 +28,11 @@ def get_recent_testimonies():
       pass
 
   ser1 = pd.Series(lst_d)
-  ser1.loc[68] = '2/15/2006'
+  ser1.loc[68] = '2/15/2006' 
   ser1.loc[69] = '3/1/2006'
   ser1 = pd.to_datetime(ser1)
   ser1 = ser1.dt.strftime('%Y%m%d').astype(str)
-  ser1.loc[194] = '20110812'
+  ser1.loc[194] = '20110812' #fix the difference between the actual date of testimony and the one shown on the link
   ser1.loc[230] = '20140114'
   ser1.loc[215] = '20120628'
   ser1.loc[41] = '20180226'
@@ -38,7 +41,7 @@ def get_recent_testimonies():
   lst_d = list(ser1.values)
   ser2 = pd.Series(lst_s)
 
-  for idx,val in enumerate(ser2):
+  for idx,val in enumerate(ser2):  #change the name of speakers to use it when creating links for retrieval, which is shown below
     if val == 'Governor Daniel K. Tarullo':
       ser2.loc[idx] = 'tarullo'
     elif val == 'Kevin M. Bertsch, Associate Director, Division of Banking Supervision and Regulation':
@@ -181,7 +184,7 @@ def get_recent_testimonies():
     soup = BeautifulSoup(page.text, 'html.parser')
     for i in soup.find("div", attrs = {"class":"col-xs-12 col-sm-8 col-md-8"}).find_all('p'):
       emp_str += i.get_text()
-      emp_str = emp_str.replace('\xa0', ' ')
+      emp_str = emp_str.replace('\xa0', ' ') #cleaning
       emp_str = emp_str.replace('\n', ' ')
       emp_str = emp_str.replace('\r', ' ')
       emp_str = emp_str.replace('         ', ' ')
@@ -192,7 +195,7 @@ def get_recent_testimonies():
     emp_dict["content"].append(emp_str)
     emp_dict["date"].append(date)
 
-  testimony0623 = pd.DataFrame(emp_dict)
+  testimony0623 = pd.DataFrame(emp_dict) #dataframe of testimonies
   testimony0623.date = pd.to_datetime(testimony0623.date)
   testimony0623.sort_values(by='date', inplace=True)
   testimony0623.reset_index(inplace=True, drop=True)
@@ -201,8 +204,11 @@ def get_recent_testimonies():
 
 
 def get_old_testimonies(): 
+  '''
+  this function collects testimonies from 1996 to 2005 and returns a dataframe
+  '''
   links = []
-  emp_dict = {'date' : [], 'speaker' : [], 'content' : []}
+  emp_dict = {'date' : [], 'speaker' : [], 'content' : []} #dict for date, speaker and content of the testimony
   years=range(1996, 1999)
   for year in years:
     page = requests.get(f'https://www.federalreserve.gov/newsevents/testimony/{year}testimony.htm')
@@ -220,7 +226,7 @@ def get_old_testimonies():
     soup = BeautifulSoup(txt2.text, 'html.parser')
     for i in soup.find_all('p'):
       emp_str += i.get_text()
-      emp_str = emp_str.replace('\xa0', ' ')
+      emp_str = emp_str.replace('\xa0', ' ') #cleaning
       emp_str = emp_str.replace('\n', ' ')
       emp_str = emp_str.replace('\r', ' ')
       emp_str = emp_str.replace('\t', ' ')
@@ -231,7 +237,7 @@ def get_old_testimonies():
       emp_str = emp_str.replace('      ', ' ')
       emp_str = emp_str.replace('    ', ' ')
       emp_str = emp_str.replace('  ', ' ')
-    emp_dict['content'].append(emp_str)
+    emp_dict['content'].append(emp_str) #append the text 
 
   years1=range(1999, 2006)
   links1 = []
@@ -255,7 +261,7 @@ def get_old_testimonies():
       emp_str1 = title2[0].text
     else:
       emp_str1 = title2[1].text
-    emp_str1 = emp_str1.replace('\xa0', ' ')
+    emp_str1 = emp_str1.replace('\xa0', ' ') #cleaning
     emp_str1 = emp_str1.replace('\n', ' ')
     emp_str1 = emp_str1.replace('\r', ' ')
     emp_str1 = emp_str1.replace('\t', ' ')
@@ -281,7 +287,7 @@ def get_old_testimonies():
   ser0 = pd.Series(links_total)
   ser0 = ser0.str.extract('(\d\d\d\d\d\d\d\d)')
   ser0 = pd.Series(ser0.values.reshape(len(ser0)))
-  ser0.loc[4] = '19960718'
+  ser0.loc[4] = '19960718' #fix the difference between the actual date of testimony and the one shown on the link
   ser0.loc[22] = '19970722'
   ser0.loc[31] = '19970226'
   ser0.loc[37] = '19981001'
@@ -308,15 +314,15 @@ def get_old_testimonies():
   ser0.loc[192] = '20050720'
   ser0.loc[205] = '20050216'
   for i in ser0:
-    emp_dict['date'].append(i)
+    emp_dict['date'].append(i) #append the date
   testimony9605 = pd.DataFrame(emp_dict)
   testimony9605.date = pd.to_datetime(testimony9605.date)
-  testimony9605.sort_values(by='date', inplace=True)
-  testimony9605.reset_index(inplace=True, drop=True)
+  testimony9605.sort_values(by='date', inplace=True) #sort by date
+  testimony9605.reset_index(inplace=True, drop=True) 
   return testimony9605
 
 
 old_testimony = get_old_testimonies()
 recent_testimony = get_recent_testimonies()
-total_testimony = pd.concat([old_testimony, recent_testimony], ignore_index = True)
-total_testimony.to_csv("../Data/Raw Data/FOMC_Testimony.csv")
+total_testimony = pd.concat([old_testimony, recent_testimony], ignore_index = True) #concatenate two dataframes
+total_testimony.to_csv("../Data/Raw Data/FOMC_Testimony.csv") #convert to csv
