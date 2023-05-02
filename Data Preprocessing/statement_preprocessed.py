@@ -10,7 +10,7 @@ while True:
     except OverflowError:
         maxInt = int(maxInt/10)
 
-df = pd.read_csv("FOMCStatement.csv",index_col=0)
+df = pd.read_csv("../Data/Raw Data/FOMCStatement.csv",index_col=0)
 
 import nltk
 nltk.download('stopwords')
