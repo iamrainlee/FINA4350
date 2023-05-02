@@ -51,7 +51,7 @@ pattern4 = r'For immediate release'
 df['FOMC_Statements'] = df['FOMC_Statements'].apply(lambda x: re.sub(pattern4, '', x))
 
 df["FOMC_Statements"] = df["FOMC_Statements"].apply(str_processing)
-df.to_csv("statement_preprocessed.csv")
+df.to_csv("../Data/Preprocessed Data/statement_preprocessed.csv")
 
 
 

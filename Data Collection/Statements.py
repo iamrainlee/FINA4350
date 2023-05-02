@@ -17,4 +17,4 @@ for i in range(len(dataset)):
   dataset.iloc[i,0] = dataset.iloc[i,0].replace('\r',' ')
   dataset.iloc[i,0] = dataset.iloc[i,0].replace('\xa0',' ')
 
-dataset.to_csv("FOMCStatement.csv")
+dataset.to_csv("../Data/Raw Data/FOMCStatement.csv")
