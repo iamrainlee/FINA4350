@@ -9,3 +9,4 @@ wget
 tensorflow-text
 nltk
 pandasql
+sqlalchemy<2.0
