@@ -7,3 +7,5 @@ keras
 sklearn
 wget
 tensorflow-text
+nltk
+pandasql
